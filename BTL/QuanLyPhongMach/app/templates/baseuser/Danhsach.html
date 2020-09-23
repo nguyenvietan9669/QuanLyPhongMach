@@ -1,0 +1,211 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+	<title>Danh sach benh nhan</title>
+	<meta charset="UTF-8">
+<body>
+        <div class="container">
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+
+                <h2>Danh Sách <b>Bệnh Nhân Đăng Ký</b>  <button type="button"  class="btn btn-success float-right"
+                data-toggle="modal" data-target="#mymodal">Thêm Bệnh Nhân</button> </h2>
+
+
+                {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+
+                        <span aria-hidden="true">x</span>
+
+                    </button>
+
+
+                {{message}}
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+
+                    <tr>
+                        <th>Tên Bệnh Nhân</th>
+                        <th>Ngày Tới Khám</th>
+                        <th>Giới Tính</th>
+                        <th>Năm Sinh</th>
+                        <th>Số Điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Thay Đổi</th>
+
+                    </tr>
+
+
+                   {% for p in list.items %}
+                    <tr>
+                        <td>{{p.tenbenhnhan}}</td>
+                        <td>{{p.thoigiandenkham}}</td>
+                        <td>{{p.gioitinh}}</td>
+                        <td>{{p.namsinh}}</td>
+                        <td>{{p.sodienthoai}}</td>
+                        <td>{{p.diachi}}</td>
+
+                        {% if p.status == 0 %}
+                        <td>
+                            <a href="{{ url_for('update', id = p.manguoidangky) }}" class="btn btn-warning btn-xs">Sửa</a>
+                            <a href="{{ url_for('lapphieu', id = p.manguoidangky) }}" class="btn btn-warning btn-xs">Lập Phiếu Khám</a>
+                        </td>
+                        {% else %}
+                        <td>Đã Khám</td>
+                        {% endif %}
+
+                    </tr>
+                     {% endfor %}
+
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if list.has_prev %}
+                            <li class="page-item"> <a class="page-link" href="{{ url_for('load_list', page=list.prev_num) }}">Trước</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link btn disabled" href="#">Trước</a></li>
+                        {% endif %}
+      {% for page in list.iter_pages(left_edge=3, right_edge=3) %}
+      {% if page %}
+
+      {% if page==list.page %}
+        <li class="page-item active"><a class="page-link" href="{{ url_for('load_list', page=page) }}">{{ page }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('load_list', page=page) }}">{{ page }}</a></li>
+      {% endif %}
+
+     {% else %}
+        <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li>
+     {% endif %}
+     {% endfor %}
+
+                    {% if list.has_next %}
+                      <li class="page-item"> <a class="page-link" href="{{ url_for('load_list', page=list.next_num) }}">Sau</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="page-link btn disabled" href="#">Sau</a></li>
+                    {% endif %}
+
+                </ul>
+    </nav>
+
+
+            </div>
+
+
+
+                  <!-- Modal Add Employee-->
+
+
+<div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+
+            <h4 class="modal-title">Thêm Bệnh Nhân</h4>
+         </div>
+         <div class="modal-body">
+
+            <form action="{{url_for('insert')}}" method="POST">
+
+               <div class="form-group">
+                  <label>Tên Bệnh Nhân:</label>
+                   <input type="hidden"  name="id" value="2">
+                  <input type="text" class="form-control" name="name" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Năm Sinh:</label>
+                  <input type="date" class="form-control" name="birth" required="1">
+               </div>
+
+                <div class="form-group">
+                  <label>Địa Chỉ:</label>
+                  <input type="text" class="form-control" name="address" required="1">
+               </div>
+
+				<div class="form-group">
+                  <label>Giới Tính:</label>
+                  <input type="text" class="form-control" name="gender" required="1">
+               </div>
+
+				<div class="form-group">
+                  <label>Số Điện thoại:</label>
+                  <input type="number" class="form-control" name="phone" required="1">
+               </div>
+
+				<div class="form-group">
+                  <label>Ngày Tới khám:</label>
+                  <input type="date" class="form-control" name="dateto" required="1">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Thêm Bệnh Nhân</button>
+               </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!--===============================================================================================-->
+	<script src="{{url_for('static',filename='danhsach/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{url_for('static',filename='danhsach/vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{url_for('static',filename='danhsach/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{url_for('static',filename='danhsach/vendor/select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{url_for('static',filename='danhsach/js/main.js')}}"></script>
+
+</body>
+{% endblock %}

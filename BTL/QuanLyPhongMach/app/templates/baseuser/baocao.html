@@ -1,0 +1,84 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+<section class="ftco-section bg-light">
+    	<div class="container">
+    		<div class="row justify-content-center mb-5 pb-2">
+          <div class="col-md-8 text-center heading-section ftco-animate">
+          	<span class="subheading"></span>
+            <h2 class="mb-24">Báo Cáo</h2>
+            <p></p>
+          </div>
+        </div>
+    		<div class="row">
+        	<div class="col-md-6 ftco-animate">
+        		<div class="pricing-entry pb-5 text-center">
+        			<div>
+	        			<h3 class="mb-4">Báo Cáo Doanh Thu Tháng</h3>
+	        			<p><span class="price">Thu Nhập</span> <span class="per">/ Tháng</span></p>
+	        		</div>
+        			<ul>
+        				        <li>Doanh Thu theo Ngày</li>
+								<li>Doanh Thu Theo Tháng</li>
+								<li>Số Bệnh Nhân</li>
+								<li>Tỷ Lệ</li>
+        			</ul>
+					<p class="button text-center"><button data-toggle="modal" data-target="#mymodal" class="btn btn-primary px-4 py-3">Xem Chi Tiết</button></p>
+        		</div>
+        	</div>
+        	<div class="col-md-6 ftco-animate">
+        		<div class="pricing-entry pb-5 text-center">
+        			<div>
+	        			<h3 class="mb-4">Báo Cáo Sử Dụng Thuốc</h3>
+	        			<p><span class="price">Số Lần Dùng</span> <span class="per">/ Ngày</span></p>
+	        		</div>
+        			<ul>
+								<li>Thuốc</li>
+								<li>Đơn Vị Tính</li>
+								<li>Số Lượng</li>
+								<li>Số Lần Dùng</li>
+        			</ul>
+        			<p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Xem Chi Tiết</a></p>
+        		</div>
+        	</div>
+	<div id="mymodal" class="modal fade" role="dialog">
+	   <div class="modal-dialog">
+		  <div class="modal-content">
+			 <div class="modal-header">
+
+				<h4 class="modal-title">Chọn Tháng</h4>
+			 </div>
+			 <div class="modal-body">
+
+				<form action="{{ url_for('baocao') }}" method="POST">
+
+				   <div class="form-group">
+					  <input type="month" class="form-control" name="date" >
+				   </div>
+				   <div class="form-group">
+					  <button class="btn btn-primary" type="submit">Xem</button>
+				   </div>
+
+				</form>
+
+			 </div>
+
+			 <div class="modal-footer">
+
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+
+
+			 </div>
+
+
+		  </div>
+
+
+   		</div>
+
+
+	</div>
+
+        </div>
+    	</div>
+    </section>
+{% endblock %}

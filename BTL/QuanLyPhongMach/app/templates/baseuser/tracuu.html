@@ -1,0 +1,81 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+<p></p>
+<div class="container">
+    <form action="{{ url_for('tracuu') }}" method="post">
+            <div class="form-group">
+                <input type="text" name="keyword" id = "keyword" placeholder="Tên bệnh nhân cần tìm..." />
+                <input type="date" name="date" id ="date"/>
+                <input type="submit" value="Tìm Kiếm" />
+            </div>
+            <p></p>
+        </form>
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+            <table id="example" class="table table-hover table-dark">
+
+                            <tr>
+
+                                <th>Tên Bệnh Nhân</th>
+                                <th>Năm Sinh</th>
+                                <th>Địa Chỉ</th>
+                                <th>Giới Tính</th>
+                                <th>Số Điện thoại</th>
+                                <th>Ngày Khám</th>
+                                <th>Thay Đổi</th>
+
+                            </tr>
+
+
+                           {% for t in benhnhan.items %}
+                            <tr>
+                                <td>{{t.tenbenhnhan}}</td>
+                                <td>{{t.namsinh}}</td>
+                                <td>{{t.diachi}}</td>
+                                <td>{{t.gioitinh}}</td>
+                                <td>{{t.sodienthoai}}</td>
+                                <td>{{t.ngaykham}}</td>
+                                <td>
+                                    <a href="{{ url_for('updatebn', id = t.mabenhnhan) }}" class="btn btn-warning btn-xs" >Sửa</a>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+            </table>
+                 <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if benhnhan.has_prev %}
+                            <li class="page-item"> <a class="page-link" href="{{ url_for('tracuu', page=benhnhan.prev_num) }}">Trước</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link btn disabled" href="#">Trước</a></li>
+                        {% endif %}
+      {% for page in benhnhan.iter_pages(left_edge=3, right_edge=3) %}
+      {% if page %}
+
+      {% if page==benhnhan.page %}
+        <li class="page-item active"><a class="page-link" href="{{ url_for('tracuu', page=page) }}">{{ page }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('tracuu', page=page) }}">{{ page }}</a></li>
+      {% endif %}
+
+     {% else %}
+        <li class="page-item disabled" id="example_ellipsis"><a href="#" class="page-link">…</a></li>
+     {% endif %}
+     {% endfor %}
+
+                    {% if benhnhan.has_next %}
+                      <li class="page-item"> <a class="page-link" href="{{ url_for('tracuu', page=benhnhan.next_num) }}">Sau</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="page-link btn disabled" href="#">Sau</a></li>
+                    {% endif %}
+
+                </ul>
+    </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

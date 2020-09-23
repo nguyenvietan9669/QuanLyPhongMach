@@ -1,0 +1,33 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+<div class="container">
+    <span class="subheading">Báo Cáo Tháng</span>
+    <form action="" method="post">
+            <p></p>
+        </form>
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+            <table id="example" class="table table-hover table-dark">
+
+                            <tr>
+                                <th>Ngày</th>
+                            </tr>
+                            {% for bn in bn %}
+                            <tr>
+                                <td>{{bn}}</td>
+                                <td>
+                                    <a  href="{{ url_for('xembc', id = bn)}}" class="btn btn-warning btn-xs">Xem Chi Tiết</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+            </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

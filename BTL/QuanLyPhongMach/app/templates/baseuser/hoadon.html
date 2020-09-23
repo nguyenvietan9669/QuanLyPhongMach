@@ -1,0 +1,33 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+<div class="container">
+    <H1 >Danh Sách Hóa Đơn</H1>
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-3">
+            <table id="example" class="table table-hover table-dark">
+
+                            <tr>
+                                <th>Tên Bệnh Nhân</th>
+                                <th>Ngày Khám</th>
+                                <th></th>
+                            </tr>
+                            {% for bn in bn %}
+                            <tr>
+                                <td>{{ bn.tenbenhnhan }}</td>
+                                <td>{{ bn.ngaykham.date() }}</td>
+                                <td>
+                                    <a  href="{{ url_for('xem', id = bn.mabenhnhan)}}" class="btn btn-warning btn-xs">Xem Chi Tiết</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+            </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

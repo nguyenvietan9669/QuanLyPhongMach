@@ -1,0 +1,52 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+<div class="container">
+        <p></p>
+            <h2 class="text-center text-info">Lập phiếu khám</h2>
+        <p></p>
+            <form action="{{ url_for('lapphieu') }}" method="POST">
+
+               <div class="form-group">
+
+                  <label>Tên Bệnh Nhân:</label>
+                   <input type="hidden"  name="id" value="{{bn.mabenhnhan}}">
+                  <input type="text" class="form-control" name="name" value="{{ bn.tenbenhnhan }}">
+
+
+               </div>
+
+
+                <div class="form-group">
+
+                  <label>Ngày Khám:</label>
+                  <input type="date" class="form-control" name="birth" value="{{ bn.ngaykham.date() }}">
+
+               </div>
+
+
+                <div class="form-group">
+
+
+                  <label>Triệu Chứng:</label>
+                  <input type="text" class="form-control" name="trieuchung">
+
+
+               </div>
+                <div class="form-group container">
+
+                  <label>Dự Đoán Loại Bệnh:</label>
+                    {% for loaibenh in lb %}
+                    <p></p>
+                    <input type="checkbox" name="loaibenh" value="{{loaibenh.mabenh}}" >{{ loaibenh.tenloaibenh }}
+                    {% endfor %}
+                </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Mua Thuốc</button>
+               </div>
+            </form>
+
+
+         </div>
+</div>
+{% endblock %}

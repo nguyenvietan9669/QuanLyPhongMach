@@ -1,0 +1,38 @@
+{% extends 'baseuser/List.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <div class="jumbotron p-3">
+                    <h1>Thuốc Của Bệnh Nhân <b>{{ bn.tenbenhnhan }}</b></h1>
+                    <form action="{{ url_for('insertt') }}"  method="POST">
+                        <input type="checkbox"  name="nouse" value="0" >  Không sử dụng thuốc
+                        <input type="hidden"  name="id" value="{{bn.mabenhnhan}}">
+                        <input type="hidden"  name="id_pk" value="{{pk.maphieukham}}">
+                         <div class="form-group">
+
+                          <label>Người Kê Toa:</label>
+                          <input type="text"  class="form-control" name="nguoike">
+
+                         </div>
+
+                        <div class="form-group container">
+
+                          <label>Chọn Loại Thuốc Cần Dùng:</label>
+                            <p></p>
+                            {% for t in thuoc %}
+                                <input type="checkbox" name="thuoc" value="{{t.mathuoc}}" >{{ t.tenthuoc }}
+                                <input type="number"  name="soluong{{t.mathuoc}}" >
+                            <p></p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                          <button class="btn btn-primary" type="submit">Lập Hóa Đơn</button>
+                       </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

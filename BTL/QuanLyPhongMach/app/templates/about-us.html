@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+ <div class="container">
+     <p></p>
+     <h2 class="text-center text-info">Chào Mừng Đến Với Phòng Khám</h2>
+    <div class="row">
+        <div class="col md-12">
+            {% for i in tienk %}
+                <h2>Giá Khám : <b>{{i.sotien}} (VND)</b></h2>
+            {% endfor %}
+            <div class="jumbotron p-3">
+                <table class="table table-hover table-dark">
+
+                    <tr>
+                        <th>Tên Thuốc</th>
+                        <th>Giá Thuốc</th>
+                    </tr>
+
+
+                 {% for t in tient %}
+                    <tr>
+                       <td>{{t.tenthuoc}}</td>
+                       <td>{{t.gia}} (VND)</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+ </div>
+
+{% endblock %}
